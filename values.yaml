@@ -1,0 +1,20 @@
+green:
+  enabled: false
+  image: nginxinc/nginx-unprivileged
+  version: 1.19.2
+blue:
+  enabled: true
+  image: nginxinc/nginx-unprivileged
+  version: 1.19.1
+
+productionSlot: blue
+
+replicaCount: 1
+
+ingress:
+  hostname: travelplanner.apps.mcm-ocp4.ocpdns.local
+  stagehostname: beta-travelplanner.apps.mcm-ocp4.ocpdns.local
+
+index: hello world
+index_green: travel planner v3 - nginx 1.19.2 - green slot
+index_blue: travel planner v2 - nginx 1.19.1 - blue slot

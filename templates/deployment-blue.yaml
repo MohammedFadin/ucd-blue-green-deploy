@@ -1,0 +1,40 @@
+{{ if .Values.blue.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "blue-green.fullname" . }}-blue
+  labels:
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app: {{ template "blue-green.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "blue-green.name" . }}
+      release: {{ .Release.Name }}
+      slot: blue
+  template:
+    metadata:
+      labels:
+        app: {{ template "blue-green.name" . }}
+        release: {{ .Release.Name }}
+        slot: blue
+    spec:
+      containers:
+        - name: {{ template "blue-green.name" . }}-blue
+          image: {{ .Values.blue.image }}:{{ .Values.blue.version }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          # This (and the volumes section below) mount the config map as a volume.
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: wwwdata-volume
+      volumes:
+        - name: wwwdata-volume
+          configMap:
+            name: {{ .Release.Name }}-blue
+{{ end }}
