@@ -1,14 +1,14 @@
 blue:
-  enabled: @enable-blue@
+  enabled: true
   image: nginxinc/nginx-unprivileged
   version: 1.19.1
 
-productionSlot: @slot-color@ ##can be set as default within template
+productionSlot: blue ##can be set as default within template
 
 replicaCount: 1
 
 ingress:
-  hostname: @hostname-blue@.apps.mcm-ocp4.ocpdns.local
+  hostname: travelplanner.apps.mcm-ocp4.ocpdns.local
 
 index: hello world
 index_blue: travel planner v2 - nginx 1.19.1 - blue slot
