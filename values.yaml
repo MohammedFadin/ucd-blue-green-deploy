@@ -7,7 +7,7 @@ blue:
   image: nginxinc/nginx-unprivileged
   version: 1.19.1
 
-productionSlot: blue
+productionSlot: @slot-color@
 
 replicaCount: 1
 
