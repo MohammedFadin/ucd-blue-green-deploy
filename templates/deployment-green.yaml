@@ -1,3 +1,4 @@
+{{ if hasKey .Values "green" }}
 {{ if .Values.green.enabled }}
 apiVersion: apps/v1
 kind: Deployment
@@ -37,4 +38,5 @@ spec:
         - name: wwwdata-volume
           configMap:
             name: {{ .Release.Name }}-green
+{{ end }}
 {{ end }}

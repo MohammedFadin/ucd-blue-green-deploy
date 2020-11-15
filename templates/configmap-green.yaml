@@ -1,4 +1,6 @@
 # This is a simple example of using a config map to create a single page static site.
+{{ if hasKey .Values "green" }}
+{{ if .Values.green.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -11,3 +13,5 @@ data:
   # When the config map is mounted as a volume, these will be created as files.
   index.html: {{ .Values.index_green | quote }}
   test.txt: test
+{{ end }}
+{{ end }}

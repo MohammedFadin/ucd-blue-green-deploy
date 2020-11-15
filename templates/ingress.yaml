@@ -16,6 +16,8 @@ spec:
           backend:
             serviceName: {{ $fullName }}-service-prod
             servicePort: http
+{{ if hasKey .Values "green" }}
+{{ if .Values.green.enabled }}            
   - host: {{ .Values.ingress.stagehostname }}
     http:
       paths:
@@ -23,3 +25,5 @@ spec:
           backend:
             serviceName: {{ $fullName }}-service-beta
             servicePort: http
+{{ end }}
+{{ end }}
