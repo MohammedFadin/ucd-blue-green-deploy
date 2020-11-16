@@ -1,0 +1,2699 @@
+{
+    "name": "ae-travelplanner",
+    "description": "",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": [
+        {
+            "name": "app_namespace",
+            "value": "ae-blue-green",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "helmpath",
+            "value": "\/home\/ucd\/helm-linux-amd64",
+            "description": "",
+            "secure": false
+        }
+    ]},
+    "templatePropSheet": {
+        "name": "template",
+        "properties": []
+    },
+    "components": [{
+        "name": "travelplanner-chart",
+        "description": "",
+        "created": 1605071983161,
+        "componentType": "STANDARD",
+        "ignoreQualifiers": 0,
+        "importAutomatically": true,
+        "useVfs": true,
+        "active": true,
+        "deleted": false,
+        "defaultVersionType": "FULL",
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "componentTemplate": {
+            "securityResourceId": "175caf02-ffb6-5e21-d74c-809cd4488d04",
+            "path": "componentTemplates\/175caf02-ffd0-8e66-f13d-7f4fd0bef89b",
+            "name": "Helm Chart",
+            "description": "",
+            "ignoreQualifiers": 0,
+            "componentType": "STANDARD",
+            "tags": [],
+            "active": true,
+            "importConfigurationStrategy": "default",
+            "envPropDefs": [],
+            "resPropDefs": [{
+                "name": "helm.release",
+                "label": "helm.release",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "Name of the Helm release",
+                "placeholder": ""
+            }],
+            "propDefs": [],
+            "properties": [],
+            "processes": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        "sourceConfigPluginName": "Git",
+        "envPropDefs": [],
+        "resPropDefs": [{
+            "name": "helm.release",
+            "label": "helm.release",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": ""
+        }],
+        "versionPropDefs": [],
+        "propSheetGroup": {"propSheets": [
+            {
+                "name": "custom",
+                "properties": []
+            },
+            {
+                "name": "GitComponentProperties",
+                "properties": [
+                    {
+                        "name": "branch",
+                        "value": "alternative-method",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "username",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "password",
+                        "value": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keypiip|rbyjZM+Nfi4bb4aUUUVJFQ==|g63Q7pG1YSMvRhU71FYi+w==}",
+                        "description": "",
+                        "secure": true
+                    },
+                    {
+                        "name": "watchTags",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "recursive",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "trustAllCerts",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "includes",
+                        "value": "**\/*",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "excludes",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "gitPath",
+                        "value": "git",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "saveFileExecuteBits",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "extensions",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "repoUrl",
+                        "value": "https:\/\/github.com\/MohammedFadin\/ucd-blue-green-deploy.git",
+                        "description": "",
+                        "secure": false
+                    }
+                ]
+            },
+            {
+                "name": "template",
+                "properties": []
+            }
+        ]},
+        "processes": [
+            {
+                "name": "combined-steps-blue-green",
+                "description": "Combines all Blue Green Deployment Steps into single process",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175d0431-e49d-0ddb-d297-5ba2bdb13c21",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Helm Install Chart",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "false"
+                        },
+                        {
+                            "to": "Delete Files and Directories",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Upgrade Chart",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Does Release Exist",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "Delete Files and Directories",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Check Helm Command-Line Health",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Upgrade Chart",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "true"
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Install Chart",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Replace Tokens",
+                            "from": "Check Helm Command-Line Health",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Does Release Exist",
+                            "from": "Helm Does Release Exist",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "cat values.yaml",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Delete Files and Directories",
+                            "x": -205,
+                            "y": 150,
+                            "h": 110,
+                            "w": 560
+                        },
+                        {
+                            "name": "Helm Upgrade Chart",
+                            "x": 32.38292492920448,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 370
+                        },
+                        {
+                            "name": "Helm Does Release Exist",
+                            "x": -402.6170750707955,
+                            "y": 790,
+                            "h": 110,
+                            "w": 530
+                        },
+                        {
+                            "name": "Does Release Exist",
+                            "x": -434.2837417374622,
+                            "y": 950,
+                            "h": 110,
+                            "w": 810
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -143.44396521706818,
+                            "y": 310,
+                            "h": 110,
+                            "w": 440
+                        },
+                        {
+                            "name": "Replace Tokens",
+                            "x": -115.68557574715913,
+                            "y": 630,
+                            "h": 110,
+                            "w": 400
+                        },
+                        {
+                            "name": "Check Helm Command-Line Health",
+                            "x": -205.3318956512046,
+                            "y": 470,
+                            "h": 110,
+                            "w": 570
+                        },
+                        {
+                            "name": "Helm Install Chart",
+                            "x": -337.6170750707955,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 340
+                        },
+                        {
+                            "name": "Check Environment Variable",
+                            "x": 667.3829249292045,
+                            "y": 570,
+                            "h": 110,
+                            "w": 550
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -55.11707507079552,
+                            "y": 1270,
+                            "h": 100,
+                            "w": 160
+                        },
+                        {
+                            "name": "cat values.yaml",
+                            "x": 157.38292492920448,
+                            "y": 790,
+                            "h": 110,
+                            "w": 310
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "1b1beb15-fd12-4d2f-ad61-354607c3b921",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": "",
+                                "label": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "## This is a temporarly path for Helm3 for demo purposes \/home\/ucd\/helm-linux-amd64\n## Typically you would want to create a PV and add your Helm3 CLI and update the UCD agent Values.YAML path\n##\n#####\n##### User specified PV containing utilities to be executed by the UCD agent\n##### userUtils.executablesPath can list multiple directories, comma separated\n##### userUtils:\n###### existingClaimName: \"\"\n#####  executablesPath: \".\"\n\n${p:application\/helmpath} version\n${p:application\/helmpath} list -n ${p:application\/app_namespace}\nls -la",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Helm Command-Line Health",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "baseDir": ".\/",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Delete Files and Directories",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 24,
+                            "commandName": "Helm Does Release Exist",
+                            "pluginName": "Kubernetes",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "release": "${p:application.name}",
+                                "flags": "-n\n${p:app_namespace}",
+                                "path": "${p:application\/helmpath}",
+                                "kubeconfig": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                            "type": "switch",
+                            "name": "Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "${p:application\/helmpath} install ${p:application.name} .\/ -n ${p:app_namespace}",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Install Chart",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "${p:application\/helmpath} upgrade ${p:application.name} .\/ --values .\/values.green.yaml -n ${p:app_namespace} --reuse-values --debug",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Upgrade Chart",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Replace Tokens",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "envPropValues": "${p:environment\/allProperties}",
+                                "propertyPrefix": "",
+                                "explicitTokens": "",
+                                "startDelimiter": "@",
+                                "endDelimiter": "@",
+                                "propFile": "replace_tokens.properties",
+                                "dir": "",
+                                "customEncoding": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Replace Tokens",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "cat .\/values.green.yaml",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "cat values.yaml",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 5,
+                            "commandName": "Check Environment Variable",
+                            "pluginName": "System Information",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "variable": "${p:environment.name}",
+                                "value": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Environment Variable",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "de-promote",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175ccf23-23f1-6f57-a8cd-050c7fd62f8c",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Helm Rollback De-Promote",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Rollback De-Promote",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Helm Rollback De-Promote",
+                            "x": -80,
+                            "y": 230,
+                            "h": 70,
+                            "w": 270
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -5,
+                            "y": 450,
+                            "h": 80,
+                            "w": 120
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "97eb910e-3a99-4e28-8645-40401b9e52c6",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "\/home\/ucd\/helm-linux-amd64 rollback ${p:application.name} 0 -n ${p:app_namespace}",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Rollback De-Promote",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "de-promote (copy)",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": false,
+                "status": "",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175cd627-d3ab-b527-d67a-1dc9ac32e001",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Does Release Exist",
+                            "from": "Helm Does Release Exist",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Does Release Exist",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "Delete Files and Directories",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Delete Files and Directories",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Replace Tokens",
+                            "from": "Check Helm Command-Line Health",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Rollback De-Promote",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Check Helm Command-Line Health",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Rollback De-Promote",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "true"
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Download Artifacts",
+                            "x": -145,
+                            "y": 310,
+                            "h": 110,
+                            "w": 440
+                        },
+                        {
+                            "name": "Check Helm Command-Line Health",
+                            "x": -210,
+                            "y": 470,
+                            "h": 110,
+                            "w": 570
+                        },
+                        {
+                            "name": "Delete Files and Directories",
+                            "x": -205,
+                            "y": 150,
+                            "h": 110,
+                            "w": 560
+                        },
+                        {
+                            "name": "Helm Rollback De-Promote",
+                            "x": -155,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 460
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -5,
+                            "y": 1270,
+                            "h": 100,
+                            "w": 160
+                        },
+                        {
+                            "name": "Does Release Exist",
+                            "x": -330,
+                            "y": 950,
+                            "h": 110,
+                            "w": 810
+                        },
+                        {
+                            "name": "Helm Does Release Exist",
+                            "x": -190,
+                            "y": 790,
+                            "h": 110,
+                            "w": 530
+                        },
+                        {
+                            "name": "Replace Tokens",
+                            "x": -125,
+                            "y": 630,
+                            "h": 110,
+                            "w": 400
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "cc5f2b63-5433-4353-94b7-8bc0ad105919",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": "",
+                                "label": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "## This is a temporarly path for Helm3 for demo purposes \/home\/ucd\/helm-linux-amd64\n## Typically you would want to create a PV and add your Helm3 CLI and update the UCD agent Values.YAML path\n##\n#####\n##### User specified PV containing utilities to be executed by the UCD agent\n##### userUtils.executablesPath can list multiple directories, comma separated\n##### userUtils:\n###### existingClaimName: \"\"\n#####  executablesPath: \".\"\n\n\/home\/ucd\/helm-linux-amd64 version\n\n\/home\/ucd\/helm-linux-amd64 list -n ae-blue-green\n\nls -la",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Helm Command-Line Health",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "baseDir": ".\/",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Delete Files and Directories",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 24,
+                            "commandName": "Helm Does Release Exist",
+                            "pluginName": "Kubernetes",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "release": "${p:application.name}",
+                                "flags": "-n\n${p:app_namespace}",
+                                "path": "\/home\/ucd\/helm-linux-amd64",
+                                "kubeconfig": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                            "type": "switch",
+                            "name": "Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "\/home\/ucd\/helm-linux-amd64 rollback ${p:application.name} 0 -n ${p:app_namespace}",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Rollback De-Promote",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Replace Tokens",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "envPropValues": "${p:environment\/allProperties}",
+                                "propertyPrefix": "",
+                                "explicitTokens": "",
+                                "startDelimiter": "@",
+                                "endDelimiter": "@",
+                                "propFile": "replace_tokens.properties",
+                                "dir": "",
+                                "customEncoding": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Replace Tokens",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "install-chart",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175b5cdd-ebc8-e30f-cfaa-e4de66318c8c",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Delete Files and Directories",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Check Helm Command-Line Health",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Replace Tokens",
+                            "from": "Check Helm Command-Line Health",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Install Chart",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "false"
+                        },
+                        {
+                            "to": "Helm Upgrade Chart",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "true"
+                        },
+                        {
+                            "to": "Helm Does Release Exist",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Does Release Exist",
+                            "from": "Helm Does Release Exist",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Install Chart",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "cat values.yaml",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Upgrade Chart",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "Delete Files and Directories",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Check Helm Command-Line Health",
+                            "x": -205.3318956512046,
+                            "y": 470,
+                            "h": 110,
+                            "w": 570
+                        },
+                        {
+                            "name": "Does Release Exist",
+                            "x": -434.2837417374622,
+                            "y": 950,
+                            "h": 110,
+                            "w": 810
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -143.44396521706818,
+                            "y": 310,
+                            "h": 110,
+                            "w": 440
+                        },
+                        {
+                            "name": "Replace Tokens",
+                            "x": -115.68557574715913,
+                            "y": 630,
+                            "h": 110,
+                            "w": 400
+                        },
+                        {
+                            "name": "Helm Upgrade Chart",
+                            "x": 32.38292492920448,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 370
+                        },
+                        {
+                            "name": "Helm Install Chart",
+                            "x": -337.6170750707955,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 340
+                        },
+                        {
+                            "name": "cat values.yaml",
+                            "x": 157.38292492920448,
+                            "y": 790,
+                            "h": 110,
+                            "w": 310
+                        },
+                        {
+                            "name": "Helm Does Release Exist",
+                            "x": -402.6170750707955,
+                            "y": 790,
+                            "h": 110,
+                            "w": 530
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -55.11707507079552,
+                            "y": 1270,
+                            "h": 100,
+                            "w": 160
+                        },
+                        {
+                            "name": "Delete Files and Directories",
+                            "x": -205,
+                            "y": 150,
+                            "h": 110,
+                            "w": 560
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "5f9268da-9a56-4885-b94d-ebbb40c26b30",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": "",
+                                "label": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "## This is a temporarly path for Helm3 for demo purposes \/home\/ucd\/helm-linux-amd64\n## Typically you would want to create a PV and add your Helm3 CLI and update the UCD agent Values.YAML path\n##\n#####\n##### User specified PV containing utilities to be executed by the UCD agent\n##### userUtils.executablesPath can list multiple directories, comma separated\n##### userUtils:\n###### existingClaimName: \"\"\n#####  executablesPath: \".\"\n\n${p:application\/helmpath} version\n${p:application\/helmpath} list -n ${p:application\/app_namespace}\nls -la",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Helm Command-Line Health",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "baseDir": ".\/",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Delete Files and Directories",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 24,
+                            "commandName": "Helm Does Release Exist",
+                            "pluginName": "Kubernetes",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "release": "${p:application.name}",
+                                "flags": "-n\n${p:app_namespace}",
+                                "path": "${p:application\/helmpath}",
+                                "kubeconfig": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                            "type": "switch",
+                            "name": "Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "${p:application\/helmpath} install ${p:application.name} .\/ -n ${p:app_namespace}",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Install Chart",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "${p:application\/helmpath} upgrade ${p:application.name} .\/ --values .\/values.green.yaml -n ${p:app_namespace} --reuse-values --debug",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Upgrade Chart",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Replace Tokens",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "envPropValues": "${p:environment\/allProperties}",
+                                "propertyPrefix": "",
+                                "explicitTokens": "",
+                                "startDelimiter": "@",
+                                "endDelimiter": "@",
+                                "propFile": "replace_tokens.properties",
+                                "dir": "",
+                                "customEncoding": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Replace Tokens",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "cat .\/values.green.yaml",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "cat values.yaml",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "promote",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "status": "",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175cce70-d3cf-b569-82eb-4706ed920ca6",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Does Release Exist",
+                            "from": "Helm Does Release Exist",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Delete Files and Directories",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "Delete Files and Directories",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Replace Tokens",
+                            "from": "Check Helm Command-Line Health",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Check Helm Command-Line Health",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Upgrade Chart (Promotion)",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Does Release Exist",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Upgrade Chart (Promotion)",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "true"
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Download Artifacts",
+                            "x": -145,
+                            "y": 310,
+                            "h": 110,
+                            "w": 440
+                        },
+                        {
+                            "name": "Replace Tokens",
+                            "x": -125,
+                            "y": 630,
+                            "h": 110,
+                            "w": 400
+                        },
+                        {
+                            "name": "Delete Files and Directories",
+                            "x": -205,
+                            "y": 150,
+                            "h": 110,
+                            "w": 560
+                        },
+                        {
+                            "name": "Helm Does Release Exist",
+                            "x": -190,
+                            "y": 790,
+                            "h": 110,
+                            "w": 530
+                        },
+                        {
+                            "name": "Does Release Exist",
+                            "x": -330,
+                            "y": 950,
+                            "h": 110,
+                            "w": 810
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -5,
+                            "y": 1270,
+                            "h": 100,
+                            "w": 160
+                        },
+                        {
+                            "name": "Check Helm Command-Line Health",
+                            "x": -210,
+                            "y": 470,
+                            "h": 110,
+                            "w": 570
+                        },
+                        {
+                            "name": "Helm Upgrade Chart (Promotion)",
+                            "x": -195,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 540
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "6663c5cb-50f8-4778-a33b-99eefdc5344a",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": "",
+                                "label": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "## This is a temporarly path for Helm3 for demo purposes \/home\/ucd\/helm-linux-amd64\n## Typically you would want to create a PV and add your Helm3 CLI and update the UCD agent Values.YAML path\n##\n#####\n##### User specified PV containing utilities to be executed by the UCD agent\n##### userUtils.executablesPath can list multiple directories, comma separated\n##### userUtils:\n###### existingClaimName: \"\"\n#####  executablesPath: \".\"\n\n\/home\/ucd\/helm-linux-amd64 version\n\n\/home\/ucd\/helm-linux-amd64 list -n ae-blue-green\n\nls -la",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Helm Command-Line Health",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "baseDir": ".\/",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Delete Files and Directories",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 24,
+                            "commandName": "Helm Does Release Exist",
+                            "pluginName": "Kubernetes",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "release": "${p:application.name}",
+                                "flags": "-n\n${p:app_namespace}",
+                                "path": "\/home\/ucd\/helm-linux-amd64",
+                                "kubeconfig": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                            "type": "switch",
+                            "name": "Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "${p:application\/helmpath}  upgrade ${p:application.name} .\/ --values .\/values.promote.yaml -n ${p:app_namespace} --reuse-values --debug",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Upgrade Chart (Promotion)",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Replace Tokens",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "envPropValues": "${p:environment\/allProperties}",
+                                "propertyPrefix": "",
+                                "explicitTokens": "",
+                                "startDelimiter": "@",
+                                "endDelimiter": "@",
+                                "propFile": "replace_tokens.properties",
+                                "dir": "",
+                                "customEncoding": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Replace Tokens",
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "promote (copy)",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/175b5bed-2465-a37c-9b50-9d0b649e1656\/processes\/175cd645-9ed9-414e-8f68-0d33062b17e4",
+                "deleted": false,
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Helm Does Release Exist",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Check Helm Command-Line Health",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "Delete Files and Directories",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "from": "Helm Upgrade Chart",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "cat values.yaml",
+                            "from": "Replace Tokens",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Replace Tokens",
+                            "from": "Check Helm Command-Line Health",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Delete Files and Directories",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Helm Upgrade Chart",
+                            "from": "Does Release Exist",
+                            "type": "VALUE",
+                            "value": "true"
+                        },
+                        {
+                            "to": "Does Release Exist",
+                            "from": "Helm Does Release Exist",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Helm Upgrade Chart",
+                            "x": -302.9368791375249,
+                            "y": 1110,
+                            "h": 110,
+                            "w": 370
+                        },
+                        {
+                            "name": "Check Environment Variable",
+                            "x": -395.70127580500537,
+                            "y": 1380,
+                            "h": 110,
+                            "w": 550
+                        },
+                        {
+                            "name": "Delete Files and Directories",
+                            "x": -202.83888842561333,
+                            "y": 150,
+                            "h": 110,
+                            "w": 560
+                        },
+                        {
+                            "name": "cat values.yaml",
+                            "x": 164.29872419499463,
+                            "y": 790,
+                            "h": 110,
+                            "w": 310
+                        },
+                        {
+                            "name": "Check Helm Command-Line Health",
+                            "x": -201.35555370245334,
+                            "y": 470,
+                            "h": 110,
+                            "w": 570
+                        },
+                        {
+                            "name": "Replace Tokens",
+                            "x": -110.21633460415944,
+                            "y": 630,
+                            "h": 110,
+                            "w": 400
+                        },
+                        {
+                            "name": "Does Release Exist",
+                            "x": -529.3190774712651,
+                            "y": 950,
+                            "h": 110,
+                            "w": 810
+                        },
+                        {
+                            "name": "Helm Does Release Exist",
+                            "x": -395.70127580500537,
+                            "y": 790,
+                            "h": 110,
+                            "w": 530
+                        },
+                        {
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "x": -197.9368791375249,
+                            "y": 1270,
+                            "h": 100,
+                            "w": 160
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -140.67777685122667,
+                            "y": 310,
+                            "h": 110,
+                            "w": 440
+                        }
+                    ],
+                    "layoutMode": "auto",
+                    "type": "graph",
+                    "name": "be1421ba-ac9e-4c6b-bda8-dff7a65dc628",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "feb6aa21bfcb5a71f3260ca3ac3c87",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 31,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "UrbanCode Deploy Versioned File Storage",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": "",
+                                "label": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "## This is a temporarly path for Helm3 for demo purposes \/home\/ucd\/helm-linux-amd64\n## Typically you would want to create a PV and add your Helm3 CLI and update the UCD agent Values.YAML path\n##\n#####\n##### User specified PV containing utilities to be executed by the UCD agent\n##### userUtils.executablesPath can list multiple directories, comma separated\n##### userUtils:\n###### existingClaimName: \"\"\n#####  executablesPath: \".\"\n\n\/home\/ucd\/helm-linux-amd64 version\n\n\/home\/ucd\/helm-linux-amd64 list -n ae-blue-green\n\nls -la",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Helm Command-Line Health",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "baseDir": ".\/",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Delete Files and Directories",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": true,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 24,
+                            "commandName": "Helm Does Release Exist",
+                            "pluginName": "Kubernetes",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "release": "${p:application.name}",
+                                "flags": "-n\n${p:app_namespace}",
+                                "path": "\/home\/ucd\/helm-linux-amd64",
+                                "kubeconfig": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                            "type": "switch",
+                            "name": "Does Release Exist",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "\/home\/ucd\/helm-linux-amd64 upgrade ${p:application.name} .\/ --values .\/values.promote.yaml -n ${p:app_namespace} --reuse-values --debug",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Helm Upgrade Chart",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 74,
+                            "commandName": "Replace Tokens",
+                            "pluginName": "File Utils",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "envPropValues": "${p:environment\/allProperties}",
+                                "propertyPrefix": "",
+                                "explicitTokens": "",
+                                "startDelimiter": "@",
+                                "endDelimiter": "@",
+                                "propFile": "replace_tokens.properties",
+                                "dir": "",
+                                "customEncoding": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Replace Tokens",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 9,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "cat .\/values.green.yaml",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "cat values.yaml",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "pluginVersion": 5,
+                            "commandName": "Check Environment Variable",
+                            "pluginName": "System Information",
+                            "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                            "properties": {
+                                "variable": "${p:environment\/slot-color}",
+                                "value": "green"
+                            },
+                            "cachedAuthTokenRestriction": {
+                                "name": "System Default",
+                                "description": "Used by default for any plugin steps without a specified token restriction",
+                                "restrictions": [{
+                                    "verb": "ALL",
+                                    "url": "\/*"
+                                }]
+                            },
+                            "type": "plugin",
+                            "name": "Check Environment Variable",
+                            "children": []
+                        }
+                    ]
+                }
+            }
+        ],
+        "configTemplates": [],
+        "genericProcesses": [],
+        "teamMappings": [],
+        "tags": [{
+            "id": "175cc49b-6cac-f78c-8c6c-7ac8ba3f738d",
+            "name": "ae-demo",
+            "color": "#DD731C",
+            "description": "",
+            "objectType": "Component"
+        }]
+    }],
+    "environments": [
+        {
+            "name": "Blue",
+            "description": "",
+            "color": "#00648D",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "requireSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": true,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 0,
+            "active": true,
+            "propSheet": {"properties": []},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false
+                }
+            }],
+            "baseResourcesFull": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false,
+                    "children": [{
+                        "name": "travelplanner-chart",
+                        "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0\/travelplanner-chart",
+                        "description": "",
+                        "parentName": "agent-ibm-ucd-agent-0",
+                        "inheritTeam": true,
+                        "roleName": "travelplanner-chart",
+                        "roleProperties": {
+                            "name": "travelplanner-chart",
+                            "properties": [{
+                                "name": "helm.release",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "propSheet": {
+                            "name": "custom",
+                            "properties": []
+                        },
+                        "tags": [],
+                        "teamMappings": [],
+                        "impersonationUseSudo": false,
+                        "impersonationForce": false,
+                        "prototype": false,
+                        "children": []
+                    }]
+                }
+            }],
+            "componentPropSheets": [{
+                "properties": [],
+                "componentName": "travelplanner-chart"
+            }],
+            "teamMappings": []
+        },
+        {
+            "name": "Green",
+            "description": "",
+            "color": "#008A52",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "requireSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": true,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 1,
+            "active": true,
+            "propSheet": {"properties": [
+                {
+                    "name": "slot-color",
+                    "value": "blue",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "enable-green",
+                    "value": "true",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "hostname-green",
+                    "value": "beta-travelplanner",
+                    "description": "",
+                    "secure": false
+                }
+            ]},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false
+                }
+            }],
+            "baseResourcesFull": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false,
+                    "children": [{
+                        "name": "travelplanner-chart",
+                        "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0\/travelplanner-chart",
+                        "description": "",
+                        "parentName": "agent-ibm-ucd-agent-0",
+                        "inheritTeam": true,
+                        "roleName": "travelplanner-chart",
+                        "roleProperties": {
+                            "name": "travelplanner-chart",
+                            "properties": [{
+                                "name": "helm.release",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "propSheet": {
+                            "name": "custom",
+                            "properties": []
+                        },
+                        "tags": [],
+                        "teamMappings": [],
+                        "impersonationUseSudo": false,
+                        "impersonationForce": false,
+                        "prototype": false,
+                        "children": []
+                    }]
+                }
+            }],
+            "componentPropSheets": [{
+                "properties": [],
+                "componentName": "travelplanner-chart"
+            }],
+            "teamMappings": []
+        },
+        {
+            "name": "Promote Green",
+            "description": "",
+            "color": "#17AF4A",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "requireSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": true,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 2,
+            "active": true,
+            "propSheet": {"properties": [{
+                "name": "slot-color",
+                "value": "green",
+                "description": "",
+                "secure": false
+            }]},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false
+                }
+            }],
+            "baseResourcesFull": [{
+                "basePath": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster",
+                "tree": {
+                    "name": "agent-ibm-ucd-agent-0",
+                    "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0",
+                    "description": "",
+                    "parentName": "CP4MCM-Cluster",
+                    "inheritTeam": true,
+                    "type": "agent",
+                    "typeName": "agent-ibm-ucd-agent-0",
+                    "propSheet": {
+                        "name": "custom",
+                        "properties": []
+                    },
+                    "tags": [],
+                    "teamMappings": [],
+                    "impersonationUseSudo": false,
+                    "impersonationForce": false,
+                    "prototype": false,
+                    "children": [{
+                        "name": "travelplanner-chart",
+                        "path": "\/Abu Dhabi DataCenter\/CP4MCM-Cluster\/agent-ibm-ucd-agent-0\/travelplanner-chart",
+                        "description": "",
+                        "parentName": "agent-ibm-ucd-agent-0",
+                        "inheritTeam": true,
+                        "roleName": "travelplanner-chart",
+                        "roleProperties": {
+                            "name": "travelplanner-chart",
+                            "properties": [{
+                                "name": "helm.release",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "propSheet": {
+                            "name": "custom",
+                            "properties": []
+                        },
+                        "tags": [],
+                        "teamMappings": [],
+                        "impersonationUseSudo": false,
+                        "impersonationForce": false,
+                        "prototype": false,
+                        "children": []
+                    }]
+                }
+            }],
+            "componentPropSheets": [{
+                "properties": [],
+                "componentName": "travelplanner-chart"
+            }],
+            "teamMappings": []
+        }
+    ],
+    "processes": [
+        {
+            "name": "promote",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "0306c4f923c5335525f0b7f9eb5342",
+                        "from": "c1752156f124a955f176b3ad7d7a52",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "c1752156f124a955f176b3ad7d7a52",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "c1752156f124a955f176b3ad7d7a52",
+                        "x": -80,
+                        "y": 230,
+                        "h": 70,
+                        "w": 270
+                    },
+                    {
+                        "name": "0306c4f923c5335525f0b7f9eb5342",
+                        "x": -5,
+                        "y": 450,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "e83f7836-ecdb-45a0-a0d4-bcaa95e0fb28",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "0306c4f923c5335525f0b7f9eb5342",
+                        "children": []
+                    },
+                    {
+                        "componentName": "travelplanner-chart",
+                        "properties": [
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "isIgnoreChildWarnings",
+                                "value": "false"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "c1752156f124a955f176b3ad7d7a52",
+                        "children": [{
+                            "componentName": "travelplanner-chart",
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "27d85b6e-3719-48a2-8896-405cc8098334",
+                            "children": [{
+                                "componentProcessName": "promote",
+                                "componentName": "travelplanner-chart",
+                                "allowFailure": false,
+                                "properties": {"isIgnoreChildWarnings": "false"},
+                                "draftProperties": {"isIgnoreChildWarnings": "false"},
+                                "type": "componentProcess",
+                                "name": "Install: \"travelplanner-chart\"",
+                                "children": []
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "install",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "c6e5312b84ea9002cf5bc0034cfb8b",
+                        "from": "254320a6fa9863953dfe35047bf3ea",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "254320a6fa9863953dfe35047bf3ea",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "254320a6fa9863953dfe35047bf3ea",
+                        "x": -50,
+                        "y": 230,
+                        "h": 70,
+                        "w": 270
+                    },
+                    {
+                        "name": "c6e5312b84ea9002cf5bc0034cfb8b",
+                        "x": -5,
+                        "y": 430,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "ed288e49-1ff0-4d8b-b95f-b4fd918a73eb",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "c6e5312b84ea9002cf5bc0034cfb8b",
+                        "children": []
+                    },
+                    {
+                        "componentName": "travelplanner-chart",
+                        "properties": [
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "isIgnoreChildWarnings",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "254320a6fa9863953dfe35047bf3ea",
+                        "children": [{
+                            "componentName": "travelplanner-chart",
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "d70d59e0-741c-4141-95d7-1bd6acba381b",
+                            "children": [{
+                                "componentProcessName": "install-chart",
+                                "componentName": "travelplanner-chart",
+                                "allowFailure": false,
+                                "properties": {"isIgnoreChildWarnings": "false"},
+                                "draftProperties": {"isIgnoreChildWarnings": "false"},
+                                "type": "componentProcess",
+                                "name": "Install: \"travelplanner-chart\"",
+                                "children": []
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "de-promote",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "0306c4f923c5335525f0b7f9eb5342",
+                        "from": "2e00fb6f82f7259124f305dee3868c",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "2e00fb6f82f7259124f305dee3868c",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "2e00fb6f82f7259124f305dee3868c",
+                        "x": -125,
+                        "y": 230,
+                        "h": 70,
+                        "w": 360
+                    },
+                    {
+                        "name": "0306c4f923c5335525f0b7f9eb5342",
+                        "x": -5,
+                        "y": 450,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "df0ef572-cae9-4ced-be70-8b57ec2831d2",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "0306c4f923c5335525f0b7f9eb5342",
+                        "children": []
+                    },
+                    {
+                        "componentName": "travelplanner-chart",
+                        "properties": [
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "isIgnoreChildWarnings",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "2e00fb6f82f7259124f305dee3868c",
+                        "children": [{
+                            "componentName": "travelplanner-chart",
+                            "type": "configurationDiff",
+                            "name": "2b92a331-971e-4bac-9d54-34a36a5d31bc",
+                            "children": [{
+                                "componentProcessName": "de-promote",
+                                "componentName": "travelplanner-chart",
+                                "allowFailure": false,
+                                "properties": {"isIgnoreChildWarnings": "false"},
+                                "draftProperties": {"isIgnoreChildWarnings": "false"},
+                                "type": "componentProcess",
+                                "name": "Apply Configuration: \"travelplanner-chart\"",
+                                "children": []
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": [{
+        "id": "175b1988-8763-ee16-ebbd-09942892115b",
+        "name": "ae-demo",
+        "color": "#DD731C",
+        "description": "",
+        "objectType": "Application"
+    }]
+}
