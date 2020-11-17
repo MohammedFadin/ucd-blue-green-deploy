@@ -1,0 +1,7 @@
+helm upgrade --install  ae-travelplanner ./
+helm upgrade  ae-travelplanner ./ --values ./values.green.yaml
+
+
+## in openshift, you cannot edit hostnames after creation, you have to give a clusterrole with custom-host resource to a serviceaccount
+oc create clusterrole route-editor-for-ucd-agents --verb=update --resource=routes.route.openshift.io/custom-host -n devops
+oc adm policy add-cluster-role-to-user route-editor-for-ucd-agents  system:serviceaccount:devops:ucd-agent-sa -n devops
