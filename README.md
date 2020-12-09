@@ -24,7 +24,8 @@ It uses following primary resources:
   - UCD [Promote Environment] will (de)-promote the traffic from Green to Blue release using UCD de-promote Process
 
 **Youtube Video**
-[![Youtube Video](https://img.youtube.com/vi/UfcLY7bZ5ts/0.jpg)](https://www.youtube.com/watch?v=UfcLY7bZ5ts)
+
+- [![Youtube Video](https://img.youtube.com/vi/UfcLY7bZ5ts/0.jpg)](https://www.youtube.com/watch?v=UfcLY7bZ5ts)
 
 **Screenshots**
 ![](ucd-screenshot.png)
